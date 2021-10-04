@@ -14,7 +14,7 @@ main_df.columns = ['domain']
 def calculate_distance(record):
     """Copy global dataframe, perform risk calculation"""
     df = main_df.copy(deep=True)
-    df['distance'] = df['domain'].swifter.progress_bar(False).apply(lambda x: Levenshtein.distance(x, config.in_list[record]))
+    df['distance'] = df['domain'].swifter.progress_bar(False).apply(lambda x: Levenshtein.distance(config.in_list[record], x))
     #print(df)
     risk = ((df['distance'] <= config.distance) & (df['distance'] != 0)).any()
     #print(risk)
